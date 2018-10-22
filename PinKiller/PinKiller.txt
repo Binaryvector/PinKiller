@@ -1,0 +1,9 @@
+## Title: PinKiller
+## Author: Shinni
+## Version 1.11
+## APIVersion: 100025
+## DependsOn: LibAddonMenu-2.0
+## SavedVariables: PinKiller_SavedVariables
+
+PinKiller.lua
+PinKillerOptions.lua
