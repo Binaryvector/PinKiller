@@ -3,17 +3,23 @@ PinKiller = PinKiller or {}
 
 PinKiller.compassPins = {
 	MAP_PIN_TYPE_QUEST_OFFER,
-	MAP_PIN_TYPE_TRACKED_QUEST_CONDITION,
-	MAP_PIN_TYPE_TRACKED_QUEST_OPTIONAL_CONDITION,
-	MAP_PIN_TYPE_TRACKED_QUEST_ENDING,
+	--MAP_PIN_TYPE_TRACKED_QUEST_CONDITION,
+	--MAP_PIN_TYPE_TRACKED_QUEST_OPTIONAL_CONDITION,
+	--MAP_PIN_TYPE_TRACKED_QUEST_ENDING,
+	MAP_PIN_TYPE_QUEST_CONDITION,
+	MAP_PIN_TYPE_QUEST_OPTIONAL_CONDITION,
+	MAP_PIN_TYPE_QUEST_ENDING,
 	MAP_PIN_TYPE_ASSISTED_QUEST_CONDITION,
 	MAP_PIN_TYPE_ASSISTED_QUEST_OPTIONAL_CONDITION,
 	MAP_PIN_TYPE_ASSISTED_QUEST_ENDING,
 	
 	MAP_PIN_TYPE_QUEST_OFFER_REPEATABLE,
-	MAP_PIN_TYPE_TRACKED_QUEST_REPEATABLE_CONDITION,
-	MAP_PIN_TYPE_TRACKED_QUEST_REPEATABLE_OPTIONAL_CONDITION,
-	MAP_PIN_TYPE_TRACKED_QUEST_REPEATABLE_ENDING,
+	--MAP_PIN_TYPE_TRACKED_QUEST_REPEATABLE_CONDITION,
+	--MAP_PIN_TYPE_TRACKED_QUEST_REPEATABLE_OPTIONAL_CONDITION,
+	--MAP_PIN_TYPE_TRACKED_QUEST_REPEATABLE_ENDING,
+	MAP_PIN_TYPE_QUEST_REPEATABLE_CONDITION,
+	MAP_PIN_TYPE_QUEST_REPEATABLE_OPTIONAL_CONDITION,
+	MAP_PIN_TYPE_QUEST_REPEATABLE_ENDING,
 	MAP_PIN_TYPE_ASSISTED_QUEST_REPEATABLE_CONDITION,
 	MAP_PIN_TYPE_ASSISTED_QUEST_REPEATABLE_OPTIONAL_CONDITION,
 	MAP_PIN_TYPE_ASSISTED_QUEST_REPEATABLE_ENDING,
@@ -30,8 +36,8 @@ function PinKiller:InitializeCompassPins()
 	self.originalMinVisibleAlpha = {}
 	
 	for _, pinType in pairs(self.compassPins) do
-		self.originalAlphaCoefficients[pinType] = {COMPASS.container:GetAlphaCoefficients(pinType)}
-		self.originalMinVisibleAlpha[pinType] = COMPASS.container:GetMinVisibleAlpha(pinType)
+		--self.originalAlphaCoefficients[pinType] = {COMPASS.container:GetAlphaDropoffBehavior(pinType)}
+		--self.originalMinVisibleAlpha[pinType] = COMPASS.container:GetMinVisibleAlpha(pinType)
 	end
 	
 	self.originalAreaAnimation = COMPASS.PlayAreaPinOutAnimation
@@ -43,14 +49,24 @@ function PinKiller:InitializeCompassPins()
 end
 	
 function PinKiller:RefreshCompassPinSettings(pinType)
+
 	local isEnabled = self:IsCompassPinTypeEnabled(pinType)
 	if isEnabled then
-		COMPASS.container:SetAlphaCoefficients(pinType, unpack(PinKiller.originalAlphaCoefficients[pinType]))
-		COMPASS.container:SetMinVisibleAlpha(pinType, PinKiller.originalMinVisibleAlpha[pinType]) 
+		COMPASS.container:SetAlphaDropoffBehavior(pinType, 1, 0.75, 0, 85)
+		--COMPASS.container:SetMinVisibleAlpha(pinType, PinKiller.originalMinVisibleAlpha[pinType]) 
 	else
-		COMPASS.container:SetAlphaCoefficients(pinType, 0, 0, 0)
-		COMPASS.container:SetMinVisibleAlpha(pinType, 0)
+		COMPASS.container:SetAlphaDropoffBehavior(pinType, 1/99, 1/99, 0, 1)
+		--COMPASS.container:SetMinVisibleAlpha(pinType, 2)
 	end
+	
+end
+
+local origFunction = COMPASS.container.IsCenterOveredPinSuppressed
+function COMPASS.container:IsCenterOveredPinSuppressed(pinIndex, ...)
+	if PinKiller:IsCompassPinTypeEnabled(self:GetCenterOveredPinType(pinIndex)) then
+		return origFunction(self, pinIndex, ...)
+	end
+	return true
 end
 
 function PinKiller:RefreshAreaAnimation()

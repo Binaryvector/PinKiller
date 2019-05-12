@@ -95,14 +95,12 @@ function PinKiller:InitializeLAM()
 	}
 	local optionsTable = setmetatable({}, { __index = table })
 	
-	local submenuTable = setmetatable({}, { __index = table })
 	optionsTable:insert({
-		type = "submenu",
+		type = "header",
 		name = self.strings.COMPASS_HEADER,
-		controls = submenuTable,
 	})
 	
-	submenuTable:insert({
+	optionsTable:insert({
 		type = "checkbox",
 		name = self.strings.AREA_ANIMATION,
 		tooltip = self.strings.AREA_ANIMATION_TOOLTIP,
@@ -112,35 +110,54 @@ function PinKiller:InitializeLAM()
 		default = false,
 	})
 	
-	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_POI_SEEN)
-	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_POI_COMPLETE)
-	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_TIMELY_ESCAPE_NPC)
+	addCompassCheckbox(optionsTable, MAP_PIN_TYPE_POI_SEEN)
+	addCompassCheckbox(optionsTable, MAP_PIN_TYPE_POI_COMPLETE)
+	addCompassCheckbox(optionsTable, MAP_PIN_TYPE_TIMELY_ESCAPE_NPC)
 	
-	submenuTable:insert({
-		type = "header",
+	local submenuTable = setmetatable({}, { __index = table })
+	optionsTable:insert({
+		type = "submenu",
 		name = self.strings.QUEST_HEADER,
+		controls = submenuTable,
 	})
 	
 	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_OFFER)
 	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_ASSISTED_QUEST_CONDITION)
 	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_ASSISTED_QUEST_OPTIONAL_CONDITION)
 	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_ASSISTED_QUEST_ENDING)
-	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_TRACKED_QUEST_CONDITION)
-	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_TRACKED_QUEST_OPTIONAL_CONDITION)
-	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_TRACKED_QUEST_ENDING)
+	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_CONDITION)
+	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_OPTIONAL_CONDITION)
+	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_ENDING)
 	
-	submenuTable:insert({
-		type = "header",
+	local submenuTable = setmetatable({}, { __index = table })
+	optionsTable:insert({
+		type = "submenu",
+		name = self.strings.ZONE_STORY_QUEST_HEADER,
+		controls = submenuTable,
+	})
+	
+	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_OFFER_ZONE_STORY)
+	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_ASSISTED_QUEST_ZONE_STORY_CONDITION)
+	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_ASSISTED_QUEST_ZONE_STORY_OPTIONAL_CONDITION)
+	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_ASSISTED_QUEST_ZONE_STORY_ENDING)
+	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_ZONE_STORY_CONDITION)
+	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_ZONE_STORY_OPTIONAL_CONDITION)
+	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_ZONE_STORY_ENDING)
+	
+	local submenuTable = setmetatable({}, { __index = table })
+	optionsTable:insert({
+		type = "submenu",
 		name = self.strings.REPEATABLE_QUEST_HEADER,
+		controls = submenuTable,
 	})
 	
 	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_OFFER_REPEATABLE)
 	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_ASSISTED_QUEST_REPEATABLE_CONDITION)
 	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_ASSISTED_QUEST_REPEATABLE_OPTIONAL_CONDITION)
 	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_ASSISTED_QUEST_REPEATABLE_ENDING)
-	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_TRACKED_QUEST_REPEATABLE_CONDITION)
-	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_TRACKED_QUEST_REPEATABLE_OPTIONAL_CONDITION)
-	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_TRACKED_QUEST_REPEATABLE_ENDING)
+	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_REPEATABLE_CONDITION)
+	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_REPEATABLE_OPTIONAL_CONDITION)
+	addCompassCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_REPEATABLE_ENDING)
 	
 	optionsTable:insert({
 		type = "header",
@@ -160,20 +177,20 @@ function PinKiller:InitializeLAM()
 		default = true,
 	})
 	
-	local submenuTable = setmetatable({}, { __index = table })
 	optionsTable:insert({
-		type = "submenu",
+		type = "header",
 		name = self.strings.FLOATING_MARKER_HEADER,
-		controls = submenuTable,
 	})
 	
 	local isBreadcrumb = true
 	local isNotBreadcrumb = false
-	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_TIMELY_ESCAPE_NPC, isNotBreadcrumb, "full")
+	addFloatingCheckbox(optionsTable, MAP_PIN_TYPE_TIMELY_ESCAPE_NPC, isNotBreadcrumb, "full")
 	
-	submenuTable:insert({
-		type = "header",
+	local submenuTable = setmetatable({}, { __index = table })
+	optionsTable:insert({
+		type = "submenu",
 		name = self.strings.QUEST_HEADER,
+		controls = submenuTable,
 	})
 	
 	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_OFFER, isNotBreadcrumb, "full")
@@ -196,16 +213,55 @@ function PinKiller:InitializeLAM()
 	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_ASSISTED_QUEST_OPTIONAL_CONDITION, isBreadcrumb)
 	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_ASSISTED_QUEST_ENDING, isNotBreadcrumb)
 	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_ASSISTED_QUEST_ENDING, isBreadcrumb)
-	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_TRACKED_QUEST_CONDITION, isNotBreadcrumb)
-	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_TRACKED_QUEST_CONDITION, isBreadcrumb)
-	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_TRACKED_QUEST_OPTIONAL_CONDITION, isNotBreadcrumb)
-	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_TRACKED_QUEST_OPTIONAL_CONDITION, isBreadcrumb)
-	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_TRACKED_QUEST_ENDING, isNotBreadcrumb)
-	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_TRACKED_QUEST_ENDING, isBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_CONDITION, isNotBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_CONDITION, isBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_OPTIONAL_CONDITION, isNotBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_OPTIONAL_CONDITION, isBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_ENDING, isNotBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_ENDING, isBreadcrumb)
+	
+	
+	local submenuTable = setmetatable({}, { __index = table })
+	optionsTable:insert({
+		type = "submenu",
+		name = self.strings.ZONE_STORY_QUEST_HEADER,
+		controls = submenuTable,
+	})
+	
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_OFFER_ZONE_STORY, isNotBreadcrumb, "full")
 	
 	submenuTable:insert({
-		type = "header",
+		type = "description",
+		text = self.strings.FLOATING_NORMAL,
+		width = "half",
+	})
+	
+	submenuTable:insert({
+		type = "description",
+		text = self.strings.FLOATING_BREADCRUMB,
+		width = "half",
+	})
+	
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_ASSISTED_QUEST_ZONE_STORY_CONDITION, isNotBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_ASSISTED_QUEST_ZONE_STORY_CONDITION, isBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_ASSISTED_QUEST_ZONE_STORY_OPTIONAL_CONDITION, isNotBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_ASSISTED_QUEST_ZONE_STORY_OPTIONAL_CONDITION, isBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_ASSISTED_QUEST_ZONE_STORY_ENDING, isNotBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_ASSISTED_QUEST_ZONE_STORY_ENDING, isBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_ZONE_STORY_CONDITION, isNotBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_ZONE_STORY_CONDITION, isBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_ZONE_STORY_OPTIONAL_CONDITION, isNotBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_ZONE_STORY_OPTIONAL_CONDITION, isBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_ZONE_STORY_ENDING, isNotBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_ZONE_STORY_ENDING, isBreadcrumb)
+	
+	
+	
+	local submenuTable = setmetatable({}, { __index = table })
+	optionsTable:insert({
+		type = "submenu",
 		name = self.strings.REPEATABLE_QUEST_HEADER,
+		controls = submenuTable,
 	})
 	
 	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_OFFER_REPEATABLE, isNotBreadcrumb, "full")
@@ -228,14 +284,13 @@ function PinKiller:InitializeLAM()
 	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_ASSISTED_QUEST_REPEATABLE_OPTIONAL_CONDITION, isBreadcrumb)
 	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_ASSISTED_QUEST_REPEATABLE_ENDING, isNotBreadcrumb)
 	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_ASSISTED_QUEST_REPEATABLE_ENDING, isBreadcrumb)
-	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_TRACKED_QUEST_REPEATABLE_CONDITION, isNotBreadcrumb)
-	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_TRACKED_QUEST_REPEATABLE_CONDITION, isBreadcrumb)
-	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_TRACKED_QUEST_REPEATABLE_OPTIONAL_CONDITION, isNotBreadcrumb)
-	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_TRACKED_QUEST_REPEATABLE_OPTIONAL_CONDITION, isBreadcrumb)
-	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_TRACKED_QUEST_REPEATABLE_ENDING, isNotBreadcrumb)
-	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_TRACKED_QUEST_REPEATABLE_ENDING, isBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_REPEATABLE_CONDITION, isNotBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_REPEATABLE_CONDITION, isBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_REPEATABLE_OPTIONAL_CONDITION, isNotBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_REPEATABLE_OPTIONAL_CONDITION, isBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_REPEATABLE_ENDING, isNotBreadcrumb)
+	addFloatingCheckbox(submenuTable, MAP_PIN_TYPE_QUEST_REPEATABLE_ENDING, isBreadcrumb)
 	
-	local LAM = LibStub("LibAddonMenu-2.0")
-	LAM:RegisterAddonPanel("PinKillerControl", panelData)
-	LAM:RegisterOptionControls("PinKillerControl", optionsTable)
+	LibAddonMenu2:RegisterAddonPanel("PinKillerControl", panelData)
+	LibAddonMenu2:RegisterOptionControls("PinKillerControl", optionsTable)
 end

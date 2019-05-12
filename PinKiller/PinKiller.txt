@@ -1,7 +1,8 @@
 ## Title: PinKiller
 ## Author: Shinni
 ## Version 2.0
-## APIVersion: 100026
+## APIVersion: 100027
+## AddOnVersion: 200000
 ## DependsOn: LibAddonMenu-2.0
 ## SavedVariables: PinKiller_SavedVariables
 
