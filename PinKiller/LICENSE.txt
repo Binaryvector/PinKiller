@@ -6,7 +6,7 @@ https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 The library "LibAddonMenu" is © 2016 Ryan Lakanen (Seerah), used under The Artistic License 2.0:
 see libs/LibAddonMenu-2.0/LibAddonMenu-2.0/LICENSE
 
-The library "LibStub" is Public Domain, see libs/LibStub/LibStub.lua
+The library "LibStub" is Public Domain, see libs/LibAddonMenu-2.0/LibStub/LibStub.lua
 
 
 This Add-on is not created by, affiliated with or sponsored by ZeniMax Media Inc. or its affiliates.
