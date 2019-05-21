@@ -1,8 +1,8 @@
 ## Title: PinKiller
 ## Author: Shinni
-## Version 2.0
+## Version 2.1
 ## APIVersion: 100027
-## AddOnVersion: 200000
+## AddOnVersion: 200001
 ## DependsOn: LibAddonMenu-2.0
 ## SavedVariables: PinKiller_SavedVariables
 
@@ -12,6 +12,6 @@ CompassPins.lua
 FloatingMarkers.lua
 MapPins.lua
 localization/$(language).lua
-localization/default.lua
+localization/en.lua
 
 PinKiller.lua
